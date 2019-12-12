@@ -1,0 +1,240 @@
+.project-des {
+    padding: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: justify;
+    text-indent: 30px;
+    color: #353535;
+}
+
+.layui-tab {
+    height: 100%;
+    display: -webkit-flex;
+    flex-direction: column;
+}
+
+.layui-tab-content {
+    flex: 1;
+    padding-top: 10px;
+    background-image: linear-gradient(to right, rgba(120, 121, 194, .1) 0%, rgba(15, 53, 12, .1) 100%);
+}
+
+.select-w {
+    width: 300px;
+}
+
+.int-w {
+    /* width: 400px; */
+}
+
+.layui-layer-content {
+    text-align: justify;
+}
+
+.pages {
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    display: -webkit-flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.layui-laypage a,
+.layui-laypage span {
+    background: none !important;
+}
+
+.layui-layer-btn .layui-layer-btn0 {
+    background: #009688 !important;
+    border: 1px solid #009688 !important;
+}
+
+.layui-labelname {
+    width: 85px;
+    padding: 9px !important;
+}
+
+.layui-title {
+    padding-left: 15px;
+}
+
+.layui-title::before {
+    content: '';
+    width: 2px;
+    height: 15px;
+    background: #009688;
+}
+
+.layui-elem-field {
+    border-color: #009688 !important;
+}
+
+.layui-btnBox {
+    display: -webkit-flex;
+    flex-flow: nowrap row;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+
+.layui-del {
+    background: #ff4d4d !important;
+}
+
+.layui-selectall {
+    background: #5FB878 !important;
+}
+
+/* 数据管理 */
+.manage-form-head,
+.manage-form-item {
+    display: -webkit-flex;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+.manage-form-item {
+    min-height: 45px;
+    margin-left: 86px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* 应用 */
+.question-form {
+    width: 750px;
+    margin: auto;
+    background: #fff;
+    position: relative;
+    display: none;
+}
+
+.quest-sub {
+    position: absolute;
+    right: 30px;
+    top: 50px;
+}
+
+.applic-title {
+    font-size: 18px;
+    text-align: center;
+    color: #666;
+    padding: 20px 0;
+}
+
+.applic-pro {
+    font-size: 14px;
+    color: #888;
+    padding: 0 15px;
+}
+
+.quest-form-list {
+    padding: 10px 0 20px 15px;
+}
+
+.quest-form-item {
+    margin-bottom: 15px;
+}
+
+/* 自定义radio */
+.layui-form-radio i {
+    top: 0;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border: 1px solid #d2d2d2;
+    font-size: 12px;
+    border-radius: 2px;
+    background-color: #fff;
+    color: #fff !important;
+}
+
+.layui-form-radioed i {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-style: solid;
+    background-color: #5FB878 !important;
+    color: #5FB878 !important;
+}
+
+.layui-form-radioed i:hover {
+    border: 1px solid #5FB878;
+}
+
+/* 使用伪类画选中的对号 */
+.layui-form-radioed i::after,
+.layui-form-radioed i::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    display: block;
+    width: 8px;
+    height: 1px;
+    border-radius: 4px;
+    background-color: #fff;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.layui-form-radioed i::before {
+    position: absolute;
+    top: 10px;
+    left: 3px;
+    width: 4px;
+    transform: rotate(-135deg);
+}
+
+.layui-form-radio * {
+    color: #666;
+}
+
+.quest-a {
+    color: #3d3d3d;
+}
+
+.ans-form-list {
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+.ans_val {
+    padding-bottom: 10px;
+}
+
+.train-box {
+    display: -webkit-flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+#train {
+    /* width: 500px; */
+    border: 1;
+}
+
+.lay-title {
+    padding: 9px 15px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: right;
+}
+.tabStr th,.tabStr td{
+    padding: 9px 5px!important;
+}
+#dataDetail{
+    overflow: auto;
+    display: i;
+}
+.tabstr-title{
+    width: 100%;
+    text-align: center;
+}
+.no{
+    margin-left: 15px;
+    padding-top: 9px;
+    color: #3d3d3d;
+}
