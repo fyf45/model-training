@@ -6,7 +6,9 @@ let objData = {
     dataModel: [],
     testList: [],
     sample_list: [],
-    delete_List: [],
+    delSample_List: [],
+    delModel_List: [],
+    delTest_List: [],
     tableSample_name: '',
     tableResult_name: '',
     file_type: '',
@@ -89,6 +91,7 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
             objData['dataModel'] = res.modelList;
             objData['testList'] = res.testList;
             objData['dataList'] = res.sampleList.concat(res.testList);
+            $('.allChecked').prop('checked',false)
             let str1 = str2 = str3 = '';
             if (res.sampleList.length > 0) {
                 res.sampleList.map((item, index) => {
@@ -132,6 +135,7 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
     function getModelDetail() {
         objData.sendAjax(API.getModelDetail, {},
             'json').then(res => {
+            console.log(res, 'res')
             let len = Object.keys(res).length;
             if (len > 0) {
                 let tabStr = '';
@@ -190,6 +194,12 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
                 console.log(err)
             })
         } else if (res.index === 2) {
+            if ($('#train-algorithm')) {
+                $('#train-algorithm').empty()
+            }
+            if ($('#model_name').find('.layui-input')) {
+                $('#model_name').find('.layui-input').val("");
+            }
             objData.sendAjax(API.getModellist, 'json').then(res => {
                 objData['dataModel'] = res.modelList;
             }).catch(err => {
@@ -504,19 +514,17 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
         }, 'json').then(res => {
             if (res.code == 1) {
                 objData['dataModel'].push(data.field.model_name);
-                $('#train-algorithm').empty();
                 let score_test = parseFloat(res.score_test).toFixed(3),
                     score_train = parseFloat(res.score_train).toFixed(3);
                 layer.alert(`训练集得分：${score_test} </br> 测试集得分：${score_train}`, {
                     title: '训练结果'
                 });
-                form.render();
             } else if (res.code == 2) {
                 var myChart = echarts.init(document.getElementById('train-echart'));
                 // 指定图表的配置项和数据
                 var option = {
                     title: {
-                        text: '图表',
+                        text: `${data.field.testParams?'测试变量为：'+data.field.testParams:'图表'}`,
                     },
                     tooltip: {
                         trigger: 'axis'
@@ -858,13 +866,13 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
         let file_type = $(this).next().next().data("name");
         switch (file_type) {
             case "sample":
-                objData['delete_List'] = all_select(flag, ele, $(this))
+                objData['delSample_List'] = all_select(flag, ele, $(this))
                 break;
             case "model":
-                objData['delete_List'] = all_select(flag, ele, $(this))
+                objData['delModel_List'] = all_select(flag, ele, $(this))
                 break;
             case "test":
-                objData['delete_List'] = all_select(flag, ele, $(this))
+                objData['delTest_List'] = all_select(flag, ele, $(this))
                 break;
         }
     });
@@ -875,51 +883,52 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
         let file_type = $(this).parent().prev().find('.layui-del').data("name");
         switch (file_type) {
             case "sample":
-                select_check(ele, all_ele, objData['delete_List'])
+                select_check(ele, all_ele, objData['delSample_List'])
                 break;
             case "model":
-                select_check(ele, all_ele, objData['delete_List'])
+                select_check(ele, all_ele, objData['delModel_List'])
                 break;
             case "test":
-                select_check(ele, all_ele, objData['delete_List'])
+                select_check(ele, all_ele, objData['delTest_List'])
                 break;
         }
     });
     //删除
     $('.manage-form-list').find('.layui-del').click(function () {
         let file_type = $(this).data('name');
-        let allChecked = $(this).prev().find('.allChecked');
-        if (objData['delete_List'].length > 0) {
+        let len = file_type == 'sample' ? objData['delSample_List'].length : file_type == 'model' ? objData['delModel_List'].length : file_type == 'test' ? objData['delTest_List'].length : '';
+        if (len > 0) {
             layer.alert("确认是否删除", {
                 btn: ['确认', '取消'],
                 title: "提示",
                 yes: function (index, layero) {
                     objData.sendAjax(API.rm_file, {
                         file_type: file_type,
-                        file_list: JSON.stringify(objData['delete_List'])
+                        file_list: file_type == 'sample' ? JSON.stringify(objData['delSample_List']) : file_type == 'model' ? JSON.stringify(objData['delModel_List']) : file_type == 'test' ? JSON.stringify(objData['delTest_List']) : ''
                     }, 'text').then(res => {
+                        console.log(res)
                         layer.msg(res);
-                        objData['delete_List'].map(item => {
-                            switch (file_type) {
-                                case "sample":
-                                    objData['dataList'].remove(item);
-                                    break;
-                                case "model":
-                                    objData['dataModel'].remove(item);
-                                    break;
-                                case "test":
-                                    objData['testList'].remove(item);
-                                    break;
-                            }
-                        })
-                        objData['delete_List'] = [];
-                        getManageList();
-                        if (allChecked.prop("checked")) {
-                            allChecked.prop("checked", false);
-                            form.render('checkbox');
+                        switch (file_type) {
+                            case "sample":
+                                objData['delSample_List'].map(item => {
+                                    objData['delSample_List'].remove(item)
+                                });
+                                break;
+                            case "model":
+                                objData['delModel_List'].map(item => {
+                                    objData['delModel_List'].remove(item)
+                                });
+                                break;
+                            case "test":
+                                objData['delTest_List'].map(item => {
+                                    objData['delTest_List'].remove(item)
+                                });
+                                break;
                         }
+                        getManageList();
                     }).catch(err => {
                         layer.msg(err)
+                        console.log(err)
                     })
                     layer.close(index);
                 }
