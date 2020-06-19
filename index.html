@@ -186,181 +186,20 @@
                             <div class="layui-inline">
                                 <button class="layui-btn" lay-submit lay-filter="questStart">预览</button>
                             </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">名字填写</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="quest01_name" placeholder="请输入名称（选填）" autocomplete="off"
+                                        class="layui-input">
+                                </div>
+                            </div>
                         </div>
                     </form>
                     <form class="layui-form question-form">
                         <h3 class="applic-title">辨证问卷</h3>
                         <p class="applic-pro">该试卷分为单选和多选，请认真作答。</p>
                         <button class="layui-btn quest-sub" lay-submit lay-filter="quest_all">提交</button>
-                        <div class="quest-form-list" id="quest-form-list">
-                            <div class="quest-form-item">
-                                <div class="quest-a">1、您是什么时候痛经呢？<b>*</b>（多选）</div>
-                                <div class="ans-form-list ans-form-check">
-                                    <input type="checkbox" name="type[a]" lay-skin="primary" title="经前"
-                                        lay-verify="ans_checked" value="经前" class="ans_val">
-                                    <input type="checkbox" name="type[b]" lay-skin="primary" title="经期"
-                                        lay-verify="ans_checked" value="经期">
-                                    <input type="checkbox" name="type[c]" lay-skin="primary" title="经后"
-                                        lay-verify="ans_checked" value="经后">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">2、请选择腹痛类型 <b>*</b>（单选）</div>
-                                <div class="ans-form-list ans-form-check">
-                                    <input type="radio" name="2" lay-skin="primary" title="冷痛" lay-verify="ans_checked"
-                                        value="冷痛">
-                                    <input type="radio" name="2" lay-skin="primary" title="胀痛" lay-verify="ans_checked"
-                                        value="胀痛">
-                                    <input type="radio" name="2" lay-skin="primary" title="灼热感" lay-verify="ans_checked"
-                                        value="灼热感">
-                                    <input type="radio" name="2" lay-skin="primary" title="隐痛（微痛）"
-                                        lay-verify="ans_checked" value="隐痛（微痛）">
-                                    <input type="radio" name="2" lay-skin="primary" title="绵绵作痛（持续痛）"
-                                        lay-verify="ans_checked" value="绵绵作痛（持续痛）">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">3、按压腹部是否会缓解您的痛经？<b>*</b>（单选）</div>
-                                <div class="ans-form-list ans-form-check">
-                                    <input type="radio" name="3" lay-skin="primary" title="不，没有"
-                                        lay-verify="ans_checked" value="不，没有">
-                                    <input type="radio" name="3" lay-skin="primary" title="会好一点"
-                                        lay-verify="ans_checked" value="会好一点">
-                                    <input type="radio" name="3" lay-skin="primary" title="没有感觉"
-                                        lay-verify="ans_checked" value="没有感觉">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">4、月经期间是否腰疼？<b>*</b>（单选）</div>
-                                <div class="ans-form-list ans-form-check">
-                                    <input type="radio" name="4" lay-skin="primary" title="疼痛" lay-verify="ans_checked"
-                                        value="疼痛">
-                                    <input type="radio" name="4" lay-skin="primary" title="酸痛" lay-verify="ans_checked"
-                                        value="酸痛">
-                                    <input type="radio" name="4" lay-skin="primary" title="腰不疼" lay-verify="ans_checked"
-                                        value="腰不疼">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">5、请选择您的伴随症状？<b>*</b>（多选）</div>
-                                <div class="ans-form-list ans-form-check">
-                                    <input type="checkbox" name="dis[a]" lay-skin="primary" title="畏寒肢冷"
-                                        lay-verify="ans_checked" value="畏寒肢冷">
-                                    <input type="checkbox" name="dis[b]" lay-skin="primary" title="乳房胀痛"
-                                        lay-verify="ans_checked" value="乳房胀痛">
-                                    <input type="checkbox" name="dis[c]" lay-skin="primary" title="神疲乏力，头晕心悸，失眠多梦"
-                                        lay-verify="ans_checked" value="神疲乏力，头晕心悸，失眠多梦">
-                                    <input type="checkbox" name="dis[d]" lay-skin="primary" title="头晕耳鸣，失眠健忘，潮热"
-                                        lay-verify="ans_checked" value="头晕耳鸣，失眠健忘，潮热">
-                                    <input type="checkbox" name="dis[e]" lay-skin="primary" title="低热，小便黄"
-                                        lay-verify="ans_checked" value="低热，小便黄">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">6、您月经量是什么情况呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="6" lay-skin="primary" title="少" value="少">
-                                    <input type="radio" name="6" lay-skin="primary" title="多" value="多">
-                                    <input type="radio" name="6" lay-skin="primary" title="正常" value="正常">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">7、月经颜色是什么颜色呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="7" lay-skin="primary" title="淡（浅红）" value="淡（浅红）">
-                                    <input type="radio" name="7" lay-skin="primary" title="鲜红" value="鲜红">
-                                    <input type="radio" name="7" lay-skin="primary" title="暗红（深红）" value="暗红（深红）">
-                                    <input type="radio" name="7" lay-skin="primary" title="淡暗（浅褐色）" value="淡暗（浅褐色）">
-                                    <input type="radio" name="7" lay-skin="primary" title=" 暗（咖啡色）" value=" 暗（咖啡色）">
-                                    <input type="radio" name="7" lay-skin="primary" title="紫暗（偏黑）" value="紫暗（偏黑）">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">8、经期是否有血块呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="8" lay-skin="primary" title="有血块" value="有血块">
-                                    <input type="radio" name="8" lay-skin="primary" title="无血块" value="无血块">
-                                    <input type="radio" name="8" lay-skin="primary" title="有血块，块下痛减" value="有血块，块下痛减">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">9、月经质地怎么样呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="9" lay-skin="primary" title="稠" value="稠">
-                                    <input type="radio" name="9" lay-skin="primary" title="稀" value="稀">
-                                    <input type="radio" name="9" lay-skin="primary" title="正常" value="正常">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">10、月经周期情况怎么样呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="10" lay-skin="primary" title="正常" value="正常">
-                                    <input type="radio" name="10" lay-skin="primary" title="提前" value="提前">
-                                    <input type="radio" name="10" lay-skin="primary" title="延后" value="延后">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">11、平时白带量情况怎么样呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="11" lay-skin="primary" title="多" value="多">
-                                    <input type="radio" name="11" lay-skin="primary" title="少" value="少">
-                                    <input type="radio" name="11" lay-skin="primary" title="正常" value="正常">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">12、白带颜色是否偏黄？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="12" lay-skin="primary" title="是" value="是">
-                                    <input type="radio" name="12" lay-skin="primary" title="否" value="否">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">13、平时白带质地情况怎么样呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="13" lay-skin="primary" title="稠" value="稠">
-                                    <input type="radio" name="13" lay-skin="primary" title="稀" value="稀">
-                                    <input type="radio" name="13" lay-skin="primary" title="正常" value="正常">
-                                </div>
-                            </div>
-                            <div class="quest-form-item">
-                                <div class="quest-a">14、平时白带是否有味道呢？（单选）</div>
-                                <div class="ans-form-list">
-                                    <input type="radio" name="14" lay-skin="primary" title="有异味" " value=" 有异味">
-                                    <input type="radio" name="14" lay-skin="primary" title="正常" value="正常">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="layui-tab-item">
-                    <form class="layui-form">
-                        <div class="manage-form-list">
-                            <div class="manage-form-head">
-                                <label class="layui-form-label">样本数据</label>
-                                <input type="checkbox" lay-skin="primary" class="allChecked" title="全不选|全选"
-                                    lay-filter="all_check">
-                                <button class="layui-btn layui-btn-xs layui-del" data-name="sample">删除</button>
-                            </div>
-                            <div class="manage-form-item" id="sample_item"></div>
-                        </div>
-                        <div class="manage-form-list">
-                            <div class="manage-form-head">
-                                <label class="layui-form-label">模型数据</label>
-                                <input type="checkbox" lay-skin="primary" class="allChecked" title="全不选|全选"
-                                    lay-filter="all_check">
-                                <button class="layui-btn layui-btn-xs layui-del" data-name="model">删除</button>
-                            </div>
-                            <div class="manage-form-item" id="model_item"></div>
-                        </div>
-                        <div class="manage-form-list">
-                            <div class="manage-form-head">
-                                <label class="layui-form-label">测试数据</label>
-                                <input type="checkbox" lay-skin="primary" class="allChecked" title="全不选|全选"
-                                    lay-filter="all_check">
-                                <button class="layui-btn layui-btn-xs layui-del" data-name="test">删除</button>
-                            </div>
-                            <div class="manage-form-item" id="test_item"></div>
-                        </div>
+                        <div class="quest-form-list" id="quest-form-list"></div>
                     </form>
                 </div>
             </div>

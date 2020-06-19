@@ -1,5 +1,5 @@
 // const baseURI = 'https://cowrycare.com/dialectic';
-const baseURI = 'http://172.16.87.126:8888';
+const baseURI = 'http://172.16.97.236:8080';
 const APIURI = baseURI + "/data_pre";
 const TRAINURI = baseURI + "/train";
 const TESTURL = baseURI + "/test";

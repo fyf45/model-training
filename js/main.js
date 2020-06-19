@@ -15,6 +15,7 @@ let objData = {
     AlgorithmData: {},
     curr: 1,
     limit: 10,
+    name:'',
     file: new FormData(),
     getList(arr, ele) {
         let str = '<option value="">请选择</option>';
@@ -91,7 +92,7 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
             objData['dataModel'] = res.modelList;
             objData['testList'] = res.testList;
             objData['dataList'] = res.sampleList.concat(res.testList);
-            $('.allChecked').prop('checked',false)
+            $('.allChecked').prop('checked', false)
             let str1 = str2 = str3 = '';
             if (res.sampleList.length > 0) {
                 res.sampleList.map((item, index) => {
@@ -135,51 +136,75 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
     function getModelDetail() {
         objData.sendAjax(API.getModelDetail, {},
             'json').then(res => {
-            console.log(res, 'res')
-            let len = Object.keys(res).length;
-            if (len > 0) {
-                let tabStr = '';
-                for (let i in res) {
-                    tabStr += `
+                let len = Object.keys(res).length;
+                if (len > 0) {
+                    let tabStr = '';
+                    for (let i in res) {
+                        tabStr += `
                     <div class="tabstr-title">${i}算法</div>
                     <table class="layui-table tabStr">
                         <thead>
                             <tr>
                            `
-                    for (let j = 0; j < res[i].colums.length; j++) {
-                        tabStr += `
+                        for (let j = 0; j < res[i].colums.length; j++) {
+                            tabStr += `
                         <th style="text-align: center;">${res[i].colums[j]}</th>
                     `
-                    }
-                    tabStr += `
+                        }
+                        tabStr += `
                         </tr>
                     </thead>
                     <tbody>
                 `
-                    for (let k = 0; k < res[i].data.length; k++) {
-                        tabStr += `
+                        for (let k = 0; k < res[i].data.length; k++) {
+                            tabStr += `
                     <tr> 
                     `
-                        for (let x = 0; x < res[i].data[k].length; x++) {
-                            tabStr += `
+                            for (let x = 0; x < res[i].data[k].length; x++) {
+                                tabStr += `
                         <td align="center">${res[i].data[k][x]}</td>
                     `
+                            }
+                            tabStr += `
+                    </tr>`
                         }
                         tabStr += `
-                    </tr>`
-                    }
-                    tabStr += `
                             
                         </tbody>
                     </table>
                 `
+                    }
+                    $('#dataDetail').html(tabStr);
+                } else {
+                    $('#dataDetail').html("<div class='no'>暂无数据模型</div>");
                 }
-                $('#dataDetail').html(tabStr);
-            } else {
-                $('#dataDetail').html("<div class='no'>暂无数据模型</div>");
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+    //问卷
+    function getQuestList() {
+        $.getJSON('../common/quest.json', function (res) {
+            let str = '';
+            for (let q = 0; q < res.dataList.length; q++) {
+                str += `
+                <div class="quest-form-item">
+                    <div class="quest-a">${res.dataList[q].question}</div>
+                    <div class="ans-form-list ans-form-check">
+                `
+                for (let i = 0; i < res.dataList[q].answer.length; i++) {
+                    str += `
+                    <input type="radio" name="${q+1}" lay-skin="primary" title="${res.dataList[q].answer[i]}" lay-verify="ans_checked"
+                    value="${res.dataList[q].answer[i]}"> 
+                    `
+                }
+                str += `
+                    </div>
+                </div>
+                `
             }
-        }).catch(err => {
-            console.log(err)
+            $('#quest-form-list').html(str);
+            form.render();
         })
     }
     //监听Tab切换
@@ -273,6 +298,7 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
             }
 
             getModelDetail()
+            getQuestList();
         } else if (res.index === 5) {
             getManageList()
         }
@@ -524,7 +550,7 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
                 // 指定图表的配置项和数据
                 var option = {
                     title: {
-                        text: `${data.field.testParams?'测试变量为：'+data.field.testParams:'图表'}`,
+                        text: `${data.field.testParams ? '测试变量为：' + data.field.testParams : '图表'}`,
                     },
                     tooltip: {
                         trigger: 'axis'
@@ -667,31 +693,7 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
     });
     //应用问卷提交
     form.on('submit(quest_all)', function (data) {
-        //多选转化
-        function objChange(obj) {
-            let typeObj = [],
-                disObj = [];
-            if (obj != {}) {
-                Object.keys(obj).map(item => {
-                    if (item.indexOf('type') != -1) {
-                        if (!typeObj.includes(item)) {
-                            typeObj.push(obj[item]);
-                            obj["1"] = typeObj;
-                            delete obj[item];
-                        }
-                    }
-                    if (item.indexOf('dis') != -1) {
-                        if (!disObj.includes(item)) {
-                            disObj.push(obj[item]);
-                            delete obj[item];
-                            obj["5"] = disObj;
-                        }
-                    }
-                })
-            }
-            return obj;
-        }
-
+        objData['name']=data.field.quest01_name;
         function getEle() {
             let flag;
             let arr = [];
@@ -724,8 +726,10 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
             return item == true;
         })
         if (items) {
+            console.log(data.field)
             objData.sendAjax(APPLICATION + '/', {
-                options: JSON.stringify(objChange(data.field))
+                options: JSON.stringify(data.field),
+                'name':objData['name']
             }, 'json').then(res => {
                 layer.alert(`${res.recommend}`, {
                     title: `${res.syndrome}`
@@ -906,7 +910,6 @@ layui.use(['element', 'form', 'table', 'laypage', 'upload'], function () {
                         file_type: file_type,
                         file_list: file_type == 'sample' ? JSON.stringify(objData['delSample_List']) : file_type == 'model' ? JSON.stringify(objData['delModel_List']) : file_type == 'test' ? JSON.stringify(objData['delTest_List']) : ''
                     }, 'text').then(res => {
-                        console.log(res)
                         layer.msg(res);
                         switch (file_type) {
                             case "sample":
